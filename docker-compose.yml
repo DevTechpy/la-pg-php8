@@ -7,12 +7,11 @@ services:
       - 80:80
     restart: always
     volumes:
-      - /var/www/html/:/var/www/html
+      - /var/www/html/gestapp/:/var/www/html:rw
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
       - psql
-    command: ["./construtor.sh"]
     networks:
       - laravel
   psql:
@@ -30,16 +29,17 @@ services:
       networks:
         - laravel
   php:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     container_name: php
     volumes:
-      - /var/www/html/:/var/www/html
+      - /var/www/html/gestapp/:/var/www/html
     ports:
       - 9000:80
     networks:
       - laravel
 networks:
   laravel:
+
 
